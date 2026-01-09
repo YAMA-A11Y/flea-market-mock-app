@@ -1,0 +1,73 @@
+/* =========================
+   Reset / Base
+========================= */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family:
+        Arial,
+        "Hiragino Kaku Gothic ProN",
+        "Hiragino Sans",
+        Meiryo,
+        sans-serif;
+    color: #111;
+    background-color: #fff;
+}
+
+/* =========================
+   Header
+========================= */
+.header {
+    background-color: #000;
+}
+
+.header__inner {
+    width: min(960px, 92vw);
+    height: 64px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.header__logo {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.header__logo img {
+    height: 22px;
+    /* ロゴPNGに合わせて調整 */
+    width: auto;
+    display: block;
+}
+
+/* =========================
+   Main
+========================= */
+.main {
+    min-height: calc(100vh - 64px);
+    /* ヘッダー分を引く */
+    display: block;
+}
+
+/* =========================
+   Utility
+========================= */
+.text-link {
+    color: #2f6feb;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+.text-link:hover {
+    text-decoration: underline;
+}
