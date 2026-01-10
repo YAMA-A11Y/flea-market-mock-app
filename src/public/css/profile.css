@@ -1,0 +1,74 @@
+/* =========================
+   Profile page
+   - uses register.css for form basics
+========================= */
+
+/* 全体レイアウト */
+.profile-form__content {
+    min-height: calc(100vh - 64px);
+    padding: 80px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* タイトル */
+.profile-form__heading {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto 36px;
+    text-align: center;
+}
+
+/* プロフィール画像ブロック */
+.profile-form__image {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+/* 画像プレビュー（丸） */
+.profile-form__image-preview {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background: #d9d9d9;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+/* 実画像表示用（任意） */
+.profile-form__image-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 画像選択ボタン */
+.profile-form__image-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    padding: 0 16px;
+    border: 1px solid #ff5a5a;
+    border-radius: 4px;
+    background: #fff;
+    color: #ff5a5a;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.profile-form__image-button:hover {
+    background: rgba(255, 90, 90, 0.06);
+}
+
+/* file input は隠す */
+.profile-form__image-input {
+    display: none;
+}
