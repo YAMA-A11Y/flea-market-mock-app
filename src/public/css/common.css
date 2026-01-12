@@ -30,9 +30,9 @@ body {
 }
 
 .header__inner {
-    width: min(960px, 92vw);
+    width: 100%;
     height: 64px;
-    margin: 0 auto;
+    padding: left;
     display: flex;
     align-items: center;
 }

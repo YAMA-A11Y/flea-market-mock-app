@@ -15,13 +15,13 @@ use App\Http\Controllers\ItemController;
 |
 */
 
+Route::get('/', [ItemController::class, 'index'])->name('items.index');
+
 Route::middleware(['auth'])->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);
     Route::post('/mypage/profile', [ProfileController::class, 'update']);
 });
 
 Route::middleware(['auth', 'profile'])->group(function () {
-    Route::get('/', function () {
-        return '商品一覧(仮)';
-    });
+    //あとで
 });
