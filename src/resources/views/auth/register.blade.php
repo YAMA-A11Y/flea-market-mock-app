@@ -4,6 +4,9 @@
 <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 @endsection
 
+@section('header-right')
+@endsection
+
 @section('content')
 <div class="register-form__content">
   <div class="register-form__heading">

@@ -7,11 +7,15 @@
 
 @section('content')
 <div class="items">
-  <div class="items__inner">
-    <div class="items__heading">
-      <h2 class="items__title">商品一覧</h2>
+
+  <div class="items-tabs">
+    <div class="items-tabs__inner">
+      <a class="items-tabs__item is active" href="#">おすすめ</a>
+      <a class="items-tabs__item" href="#">マイリスト</a>
     </div>
+  </div>
   
+  <div class="items__inner">
     <div class="items__grid">
       @forelse ($items as $item)
         <article class="item-card">

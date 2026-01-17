@@ -6,19 +6,55 @@
     padding: 24px 0 48px;
 }
 
+/* =========================
+   Items Tabs（おすすめ / マイリスト）
+========================= */
+.items-tabs {
+    background: #fff;
+    border-bottom: 1px solid #dcdcdc;
+}
+
+.items-tabs__inner {
+    max-width: 1200px;
+    /* ヘッダーと揃える */
+    margin: 0 auto;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    gap: 32px;
+
+    padding: 0 16px;
+}
+
+.items-tabs__item {
+    display: inline-block;
+    padding: 0 6px;
+
+    font-size: 14px;
+    font-weight: 700;
+    color: #111;
+    text-decoration: none;
+    line-height: 1;
+}
+
+.items-tabs__item.is-active {
+    color: #ff2a2a;
+    /* アクティブ（赤） */
+}
+
+.items-tabs__item:hover {
+    opacity: 0.8;
+}
+
+/* =========================
+   Items layout
+========================= */
+
 .items__inner {
     width: min(960px, 92vw);
-    margin: 0 auto;
-}
-
-.items__heading {
-    margin: 18px 0 18px;
-}
-
-.items__title {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
+    margin: 32px 0 auto;
+    padding: 0 28px;
 }
 
 /* グリッド（横並び） */
@@ -28,7 +64,10 @@
     gap: 28px;
 }
 
-/* カード */
+/* =========================
+   Item card
+========================= */
+
 .item-card {
     background: transparent;
 }
@@ -84,11 +123,19 @@
     font-size: 14px;
 }
 
-/* レスポンシブ */
+/* =========================
+   Responsive
+========================= */
+
 @media (max-width: 768px) {
     .items__grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 18px;
+    }
+
+    .items-tabs__inner {
+        gap: 24px;
+        height: 48px;
     }
 }
 

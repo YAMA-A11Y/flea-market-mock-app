@@ -82,7 +82,7 @@
 
 /* ボタン */
 .form-actions {
-    margin-top: 16px;
+    padding-top: 36px;
     /* 入力欄の直後なので控えめに */
 }
 
@@ -109,7 +109,7 @@
 
 /* 会員登録リンク */
 .auth__link {
-    margin-top: 14px;
+    margin-top: 24px;
     text-align: center;
     font-size: 13px;
 }

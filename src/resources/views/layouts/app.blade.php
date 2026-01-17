@@ -17,6 +17,32 @@
             <a class="header__logo" href="{{ url('/') }}">
                 <img src="{{ asset('images/COACHTECHヘッダーロゴ.png') }}" alt="COACHTECH">
             </a>
+
+            @if (!request()->routeIs('login') && !request()->routeIs('register'))
+                <div class="header__search">
+                    <input type="text" placeholder="なにをお探しですか？" disabled>
+                </div>
+            @endif
+
+            <div class="header__right">
+                @if (!request()->routeIs('login') && !request()->routeIs('register')) 
+
+                    @auth
+                        <form method="post" action="{{ route('logout') }}">
+                            @csrf
+                            <button class="header__action" type="submit">ログアウト</button>
+                        </form>                        
+                    @else
+                        <a class="header__action" href="{{ route('login') }}">ログイン</a>
+                    @endauth
+
+                    <a class="header__action" href="#">マイページ</a>
+
+                    <a class="header__action header__action--primary" href="#">出品</a>
+
+                @endif
+            </div>
+            
         </div>
     </header>
 
