@@ -10,7 +10,7 @@
 
   <div class="items-tabs">
     <div class="items-tabs__inner">
-      <a class="items-tabs__item is active" href="#">おすすめ</a>
+      <a class="items-tabs__item is-active" href="#">おすすめ</a>
       <a class="items-tabs__item" href="#">マイリスト</a>
     </div>
   </div>
@@ -19,7 +19,7 @@
     <div class="items__grid">
       @forelse ($items as $item)
         <article class="item-card">
-          <a class="item-card__link" href="#">
+          <a class="item-card__link" href="{{ route('items.show', $item->id) }}">
             <div class="item-card__image">
               <img class="item-card__img" src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" loading="lazy">
 

@@ -1,0 +1,264 @@
+/* =========================
+   Item detail (mock)
+========================= */
+
+.item-detail {
+    padding: 24px 0 56px;
+}
+
+.item-detail__inner {
+    width: min(1040px, 92vw);
+    margin: 0 auto;
+    padding: 0 28px;
+}
+
+.item-detail__grid {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 36px;
+    align-items: start;
+}
+
+.item-detail__media {
+    display: flex;
+    justify-content: center;
+}
+
+/* 左：画像 */
+.item-detail__image {
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 1 / 1;
+    background: #e6e6e6;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.item-detail__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 右：基本情報 */
+.item-detail__name {
+    margin: 0 0 6px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.item-detail__brand {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.item-detail__price {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.item-detail__yen {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.item-detail__tax {
+    font-size: 12px;
+    color: #666;
+}
+
+/* お気に入り/コメント */
+.item-detail__meta {
+    display: flex;
+    gap: 18px;
+    margin: 8px 0 14px;
+}
+
+.meta-icon {
+    display: grid;
+    justify-items: center;
+    gap: 4px;
+    font-size: 12px;
+    color: #333;
+}
+
+.meta-icon__img {
+    width: 18px;
+    /* ← 課題画像に合わせて調整 */
+    height: 18px;
+    object-fit: contain;
+    display: block;
+}
+
+.meta-icon__num {
+    font-size: 12px;
+}
+
+/* いいねボタン */
+.like-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    line-height: 1;
+}
+
+/* いいねアイコン画像 */
+.like-btn__img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    display: block;
+}
+
+.like-btn:hover {
+    opacity: 0.8;
+}
+
+/* 購入ボタン */
+.item-detail__buy {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: min(320px, 100%);
+    height: 40px;
+    background: #ff5a5a;
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 2px;
+}
+
+.item-detail__buy:hover {
+    opacity: 0.9;
+}
+
+.item-detail__narrow {
+    width: min(320px, 100%);
+}
+
+/* セクション */
+.item-detail__section {
+    margin-top: 20px;
+}
+
+.item-detail__heading {
+    margin: 0 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.item-detail__desc p {
+    margin: 0 0 6px;
+    font-size: 12px;
+    color: #333;
+}
+
+/* dl（商品の情報） */
+.item-detail__dl {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    row-gap: 10px;
+    column-gap: 12px;
+    font-size: 12px;
+}
+
+.item-detail__dl dt {
+    color: #555;
+    font-weight: 700;
+}
+
+.item-detail__dl dd {
+    margin: 0;
+}
+
+.chip {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    border: 1px solid #ddd;
+    font-size: 11px;
+    background: #fff;
+    margin-right: 8px;
+}
+
+/* コメント */
+.comment {
+    margin-top: 8px;
+}
+
+.comment__head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+}
+
+.comment__avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #d9d9d9;
+    flex: 0 0 auto;
+}
+
+.comment__name {
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.comment__text {
+    font-size: 12px;
+    background: #efefef;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+/* コメント入力 */
+.item-detail__textarea {
+    width: 100%;
+    min-height: 160px;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    padding: 10px;
+    font-size: 12px;
+    resize: vertical;
+}
+
+.item-detail__submit {
+    margin-top: 12px;
+    width: min(320px, 100%);
+    height: 40px;
+    background: #ff5a5a;
+    color: #fff;
+    border: none;
+    border-radius: 2px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.item-detail__submit:hover {
+    opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .item-detail__inner {
+        padding: 0 16px;
+    }
+
+    .item-detail__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .item-detail__buy,
+    .item-detail__submit {
+        width: 100%;
+    }
+}

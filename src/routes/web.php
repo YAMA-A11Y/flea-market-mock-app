@@ -15,6 +15,8 @@ use App\Http\Controllers\ItemController;
 |
 */
 
+Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show');
+
 Route::get('/', [ItemController::class, 'index'])->name('items.index');
 
 Route::middleware(['auth'])->group(function () {
