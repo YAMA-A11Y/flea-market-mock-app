@@ -17,12 +17,14 @@
 
             <div class="item-detail__info">
 
-                <h1 class="item-detail__name">商品名がここに入る</h1>
+                <h1 class="item-detail__name">{{ $item->name }}</h1>
 
-                <div class="item-detail__brand">ブランド名</div>
+                @if (!empty($item->brand))
+                    <div class="item-detail__brand">{{ $item->brand }}</div>
+                @endif
 
                 <div class="item-detail__price">
-                    <span class="item-detail__yen">¥47,000</span>
+                    <span class="item-detail__yen">¥{{ number_format($item->price) }}</span>
                     <span class="item-detail__tax">(税込)</span>
                 </div>
 
@@ -44,10 +46,7 @@
                 <section class="item-detail__section">
                     <h2 class="item-detail__heading">商品説明</h2>
                     <div class="item-detail__desc">
-                        <p>カラー：グレー</p>
-                        <p>新品</p>
-                        <p>商品の状態は良好です。傷もありません。</p>
-                        <p>購入後、即発送いたします。</p>
+                        {{ $item->description }}
                     </div>
                 </section>
 
@@ -62,7 +61,7 @@
                         </dd>
 
                         <dt>商品の状態</dt>
-                        <dd>良好</dd>
+                        <dd>{{ $item->condition }}</dd>
                     </dl>
                 </section>
 

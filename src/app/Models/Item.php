@@ -10,6 +10,10 @@ class Item extends Model
     protected $fillable = [
         'user_id',
         'name',
+        'brand',
+        'price',
+        'description',
+        'condition',
         'image_path',
         'is_sold',
     ];
@@ -17,5 +21,15 @@ class Item extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(\App\Models\Like::class);
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(\App\Models\Comment::class);
     }
 }

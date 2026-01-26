@@ -15,9 +15,17 @@ use App\Http\Controllers\ItemController;
 |
 */
 
+Route::get('/', [ItemController::class, 'index'])->name('items.index');
+
 Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show');
 
-Route::get('/', [ItemController::class, 'index'])->name('items.index');
+Route::post('/item/{item_id}/like', [ItemController::class, 'toggleLike'])
+    ->middleware('auth')
+    ->name('items.like');
+
+Route::post('/item/{item_id}/comment', [ItemController::class, 'storeComment'])
+    ->middleware('auth')
+    ->name('items.comment');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);
@@ -27,3 +35,4 @@ Route::middleware(['auth'])->group(function () {
 Route::middleware(['auth', 'profile'])->group(function () {
     //あとで
 });
+
