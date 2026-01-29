@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreitemCommentRequest;
+use App\Http\Requests\StoreItemCommentRequest;
 use App\Models\Item;
 use App\Models\Like;
 use App\Models\Comment;
@@ -71,13 +71,13 @@ class ItemController extends Controller
         ]);
     }
 
-    public function storeComment(StoreitemCommentRequest $request, $item_id)
+    public function storeComment(StoreItemCommentRequest $request, $item_id)
     {
         $item = Item::findOrFail($item_id);
 
         Comment::create([
             'item_id' => $item->id,
-            'user_id' => $Auth::id(),
+            'user_id' => Auth::id(),
             'body' => $request->body,
         ]);
 

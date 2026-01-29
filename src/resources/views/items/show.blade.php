@@ -30,14 +30,19 @@
 
                 <div class="item-detail__meta">
                     <div class="meta-icon">
-                        <button class="like-btn" type="button" aria-label="いいね">
-                            <img class="like-btn__img" src="{{ asset('images/ハートロゴ_デフォルト.png') }}" data-off="{{ asset('images/ハートロゴ_デフォルト.png') }}" data-on="{{ asset('images/ハートロゴ_ピンク.png') }}" alt="いいね">
+                        <button class="like-btn" type="button" aria-label="いいね" data-auth="{{ auth()->check() ? 'true' : 'false' }}" data-login-url="{{ route('login') }}">
+
+                            @if ($isLiked)
+                                <img class="like-btn__img" src="{{ asset('images/ハートロゴ_ピンク.png') }}" data-off="{{ asset('images/ハートロゴ_デフォルト.png') }}" data-on="{{ asset('images/ハートロゴ_ピンク.png') }}"  data-liked="true" alt="いいね">
+                            @else
+                                <img class="like-btn__img" src="{{ asset('images/ハートロゴ_デフォルト.png') }}" data-off="{{ asset('images/ハートロゴ_デフォルト.png') }}" data-on="{{ asset('images/ハートロゴ_ピンク.png') }}"  data-liked="false" alt="いいね">
+                            @endif
                         </button>
-                        <span class="meta-icon__num js-like-count">0</span>
+                        <span class="meta-icon__num js-like-count">{{ $likeCount }}</span>
                     </div>
                     <div class="meta-icon">
                         <img class="meta-icon__img" src="{{ asset('images/ふきだしロゴ.png') }}" alt="コメント">
-                        <span class="meta-icon__num">2</span>
+                        <span class="meta-icon__num js-comment-count">{{ $commentCount }}</span>
                     </div>
                 </div>
 
@@ -66,28 +71,37 @@
                 </section>
 
                 <section class="item-detail__section">
-                    <h2 class="item-detail__heading">コメント(1)</h2>
+                    <h2 class="item-detail__heading">コメント({{ $commentCount }})</h2>
 
                     <div class="item-detail__narrow">
-                        <div class="comment">
-                            <div class="comment__head">
-                                <div class="comment__avatar"></div>
-                                <div class="comment__name">admin</div>
+                        @forelse ($comments as $comment)
+                            <div class="comment">
+                                <div class="comment__head">
+                                    <div class="comment__avatar"></div>
+                                    <div class="comment__name">{{ $comment->user->name ?? 'user' }}</div>
+                                </div>
+                                <div class="comment__text">{{ $comment->body }}</div>
                             </div>
-
-                            <div class="comment__text">こちらにコメントが入ります。</div>                     
-                        </div>
+                        @empty
+                            <p class="items__empty">コメントはまだありません</p>
+                        @endforelse
                     </div>
                 </section>
 
                 <section class="item-detail__section">
                     <h2 class="item-detail__heading">商品へのコメント</h2>
 
-                    <div class="item-detail__narrow">
-                        <textarea class="item-detail__textarea" rows="5"></textarea>
+                    <form class="item-detail__narrow" method="post" action="{{ route('items.comment', $item->id )}}">
+                        @csrf
 
-                        <button class="item-detail__submit" type="button">コメントを送信する</button>
-                    </div>
+                        <textarea class="item-detail__textarea" name="body" rows="5">{{old('body') }}</textarea>
+
+                        @error('body')
+                            <p class="form__error">{{ $message }}</p>
+                        @enderror
+
+                        <button class="item-detail__submit" type="submit">コメントを送信する</button>
+                    </form>
                 </section>
 
             </div>
@@ -96,23 +110,38 @@
 </div>
 
 <script>
-document.addEventListener('click', function (e) {
-    const btn = e.target.closest('.like-btn');
-    if (!btn) return;
+document.addEventListener('click', async (e) => {
+  const btn = e.target.closest('.like-btn');
+  if (!btn) return;
 
-    const img = btn.querySelector('.like-btn__img');
-    const countEl = btn.closest('.meta-icon').querySelector('.js-like-count');
+  if (btn.dataset.auth !== 'true') {
+    window.location.href = btn.dataset.loginUrl;
+    return;
+  }
 
-    const off = img.dataset.off;
-    const on = img.dataset.on;
+  const img = btn.querySelector('.like-btn__img');
+  const countEl = btn.closest('.meta-icon').querySelector('.js-like-count');
+  const token = document.querySelector('meta[name="csrf-token"]').content;
 
-    const liked = img.dataset.liked === 'true';
+  const res = await fetch("{{ route('items.like', $item->id) }}", {
+    method: "POST",
+    headers: {
+      "X-CSRF-TOKEN": token,
+      "Accept": "application/json",
+    },
+  });
 
-    img.src = liked ? off : on;
-    img.dataset.liked = liked ? 'false' : 'true';
+  if (res.status === 401) {
+    alert('いいねするにはログインが必要です');
+    return;
+  }
 
-    const current = Number(countEl.textContent);
-    countEl.textContent = liked ? current - 1 : current + 1;
+  const data = await res.json();
+
+  img.src = data.liked ? img.dataset.on : img.dataset.off;
+  img.dataset.liked = data.liked ? 'true' : 'false';
+  countEl.textContent = data.count;
 });
 </script>
+
 @endsection
