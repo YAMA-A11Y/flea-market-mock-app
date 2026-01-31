@@ -106,7 +106,7 @@ class ItemSeeder extends Seeder
 
             $item =Item::create(array_merge($data, [
                 'user_id' => $ownerId,
-                'is_sold' => false,
+                'is_sold' => ($i === 0),
             ]));
 
             if ($ownerId === 1 && $likedCount < 3) {

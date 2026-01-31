@@ -20,11 +20,11 @@
       @forelse ($items as $item)
         <article class="item-card">
           <a class="item-card__link" href="{{ route('items.show', $item->id) }}">
-            <div class="item-card__image">
+            <div class="item-card__image {{ $item->is_sold ? 'is-sold' : '' }}">
               <img class="item-card__img" src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" loading="lazy">
 
               @if ($item->is_sold)
-                <span class="item-card__sold">Sold</span>
+                <span class="item-card__sold">SOLD</span>
               @endif
             </div>
 

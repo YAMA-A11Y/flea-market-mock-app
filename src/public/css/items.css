@@ -99,14 +99,17 @@
 /* Sold */
 .item-card__sold {
     position: absolute;
-    top: 10px;
-    left: 10px;
-    background: rgba(0, 0, 0, 0.7);
+    top: 8px;
+    left: 8px;
+    background: #d32f2f;
     color: #fff;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    padding: 6px 10px;
-    border-radius: 999px;
+    letter-spacing: 0.04em;
+    padding: 4px 6px;
+    border-radius: 4px;
+    z-index: 10;
+    pointer-events: none;
 }
 
 /* 商品名 */
@@ -114,6 +117,10 @@
     margin: 10px 0 0;
     font-size: 12px;
     line-height: 1.4;
+}
+
+.item-card__image.is-sold .item-card__img {
+    opacity: 0.6;
 }
 
 /* 空表示 */

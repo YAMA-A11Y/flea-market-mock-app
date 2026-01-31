@@ -10,8 +10,12 @@
 
         <div class="item-detail__grid">
             <div class="item-detail__media">
-                <div class="item-detail__image">
-                    <img src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}">
+                <div class="item-detail__image {{ $item->is_sold ? 'is-sold' : '' }}">
+                    <img class="item-detail__img" src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}">
+
+                    @if ($item->is_sold)
+                        <span class="item-detail__sold">SOLD</span>
+                    @endif
                 </div>
             </div>
 
