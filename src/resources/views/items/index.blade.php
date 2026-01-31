@@ -10,8 +10,8 @@
 
   <div class="items-tabs">
     <div class="items-tabs__inner">
-      <a class="items-tabs__item is-active" href="#">おすすめ</a>
-      <a class="items-tabs__item" href="#">マイリスト</a>
+      <a class="items-tabs__item {{ ($tab ?? 'recommend') === 'recomend' ? 'is-active' : '' }}" href="{{ route('items.index' , ['tab' => 'recommned']) }}">おすすめ</a>
+      <a class="items-tabs__item  {{ ($tab ?? 'recommend') === 'mylist' ? 'is-active' : '' }}" href="{{ route('items.index', ['tab' => 'mylist']) }}">マイリスト</a>
     </div>
   </div>
   

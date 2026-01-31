@@ -15,12 +15,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        // 出品者A
         User::factory()->create([
-            'name' => 'dummy',
-            'email' => 'dummy@example.com',
+            'name' => 'seller_a',
+            'email' => 'seller_a@example.com',
             'password' => Hash::make('password'),
         ]);
 
+        // 出品者B
+        User::factory()->create([
+            'name' => 'seller_b',
+            'email' => 'seller_b@example.com',
+            'password' => Hash::make('password'),
+        ]);
+        
         $this->call([
             ItemSeeder::class,
         ]);

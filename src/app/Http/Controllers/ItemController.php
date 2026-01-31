@@ -7,20 +7,41 @@ use App\Models\Item;
 use App\Models\Like;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $query = Item::query()->latest();
+        $tab = $request->query('tab' , 'recommend');
 
+        $likedItemIds = [];
         if (Auth::check()) {
-            $query->where('user_id', '!=', Auth::id());
+            $likedItemIds = Auth::user()->likes()->pluck('item_id')->all();
         }
 
-        $items = $query->get();
+        if ($tab === 'mylist') {
+            if (!Auth::check()) {
+                return redirect()->route('login');
+            }
 
-        return view('items.index', compact('items'));
+            $items = Item::query()
+                ->whereHas('likes', function ($q) {
+                    $q->where('user_id', Auth::id());
+                })
+                ->latest()
+                ->get();
+        } else {
+            $query = Item::query()->latest();
+
+            if (Auth::check()) {
+                $query->where('user_id', '!=', Auth::id());
+            }
+
+            $items = $query->get();
+        }
+
+        return view('items.index', compact('items', 'tab', 'likedItemIds'));
     }
 
     public function show($item_id)

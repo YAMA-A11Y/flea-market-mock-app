@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Item;
+use App\Models\Like;
 
 class ItemSeeder extends Seeder
 {
@@ -97,11 +98,24 @@ class ItemSeeder extends Seeder
             ],
         ];
 
-        foreach ($items as $data) {
-            Item::create(array_merge($data, [
-                'user_id' => 1,
+        $likedCount = 0;
+
+        foreach ($items as $i => $data) {
+
+            $ownerId = ($i % 2 === 0) ? 1 : 2;
+
+            $item =Item::create(array_merge($data, [
+                'user_id' => $ownerId,
                 'is_sold' => false,
             ]));
+
+            if ($ownerId === 1 && $likedCount < 3) {
+                Like::create([
+                    'user_id' => 2,
+                    'item_id' => $item->id,
+                ]);
+                $likedCount++;
+            }
         }
     }
 }
