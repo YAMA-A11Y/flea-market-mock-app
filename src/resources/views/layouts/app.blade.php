@@ -21,6 +21,7 @@
 
             @if (!request()->routeIs('login') && !request()->routeIs('register'))
                 <form class="header__search" method="get" action="{{ route('items.index') }}">
+                    <input type="hidden" name="tab" value="{{ request('tab', 'recommend') }}">
                     <input class="header-search__input" type="text" name="keyword" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
                 </form>
             @endif

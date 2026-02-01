@@ -22,15 +22,16 @@ class ItemController extends Controller
 
         if ($tab === 'mylist') {
             if (!Auth::check()) {
-                return redirect()->route('login');
-            }
-
-            $items = Item::query()
+                $items = collect();
+            } else {
+                $items = Item::query()
                 ->whereHas('likes', function ($q) {
                     $q->where('user_id', Auth::id());
                 })
                 ->latest()
                 ->get();
+            }
+
         } else {
             $query = Item::query()->latest();
 
@@ -39,8 +40,7 @@ class ItemController extends Controller
             }
 
             if ($request->filled('keyword')) {
-                $keyword = $request->keyword;
-                $query->where('name', 'like', "%{$keyword}%");
+                $query->where('name', 'like', '%' . $request->keyword . '%');
             }
 
             $items = $query->get();
