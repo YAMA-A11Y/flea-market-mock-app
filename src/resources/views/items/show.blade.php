@@ -65,8 +65,11 @@
                     <dl class="item-detail__dl">
                         <dt>カテゴリー</dt>
                         <dd>
-                            <span class="chip">洋服</span>
-                            <span class="chip">メンズ</span>
+                            @forelse ($item->categories as $category)
+                                <span class="chip">{{ $category->name }}</span>
+                            @empty
+                                <span class="chip">未設定</span>
+                            @endforelse
                         </dd>
 
                         <dt>商品の状態</dt>

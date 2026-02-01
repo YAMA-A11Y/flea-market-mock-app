@@ -51,7 +51,7 @@ class ItemController extends Controller
 
     public function show($item_id)
     {
-        $item = Item::findOrFail($item_id);
+        $item = Item::with('categories')->findOrFail($item_id);
 
         $likeCount = $item->likes()->count();
         $commentCount = $item->comments()->count();

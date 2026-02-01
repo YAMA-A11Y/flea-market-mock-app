@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\Item;
 use App\Models\Like;
+use App\Models\Category;
 
 class ItemSeeder extends Seeder
 {
@@ -98,6 +99,21 @@ class ItemSeeder extends Seeder
             ],
         ];
 
+        $cat = Category::pluck('id', 'name')->all();
+
+        $itemCategoryNames = [
+            ['ファッション', 'メンズ'],
+            ['家電'],
+            ['キッチン'],
+            ['ファッション', 'メンズ'],
+            ['家電'],
+            ['家電'],
+            ['ファッション', 'レディース'],
+            ['キッチン'],
+            ['キッチン'],
+            ['コスメ'],
+        ];
+
         $likedCount = 0;
 
         foreach ($items as $i => $data) {
@@ -108,6 +124,9 @@ class ItemSeeder extends Seeder
                 'user_id' => $ownerId,
                 'is_sold' => ($i === 0),
             ]));
+
+            $categoryIds = array_map(fn ($name) => $cat[$name], $itemCategoryNames[$i]);
+            $item->categories()->attach($categoryIds);
 
             if ($ownerId === 1 && $likedCount < 3) {
                 Like::create([
