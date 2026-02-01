@@ -38,6 +38,11 @@ class ItemController extends Controller
                 $query->where('user_id', '!=', Auth::id());
             }
 
+            if ($request->filled('keyword')) {
+                $keyword = $request->keyword;
+                $query->where('name', 'like', "%{$keyword}%");
+            }
+
             $items = $query->get();
         }
 

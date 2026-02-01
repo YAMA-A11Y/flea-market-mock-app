@@ -20,9 +20,9 @@
             </a>
 
             @if (!request()->routeIs('login') && !request()->routeIs('register'))
-                <div class="header__search">
-                    <input type="text" placeholder="なにをお探しですか？" disabled>
-                </div>
+                <form class="header__search" method="get" action="{{ route('items.index') }}">
+                    <input class="header-search__input" type="text" name="keyword" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
+                </form>
             @endif
 
             <div class="header__right">
