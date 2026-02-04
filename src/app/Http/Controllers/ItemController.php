@@ -24,12 +24,16 @@ class ItemController extends Controller
             if (!Auth::check()) {
                 $items = collect();
             } else {
-                $items = Item::query()
+                $query = Item::query()
                 ->whereHas('likes', function ($q) {
                     $q->where('user_id', Auth::id());
-                })
-                ->latest()
-                ->get();
+                });
+
+                if ($request->filled('keyword')) {
+                    $query->where('name', 'like', '%' . $request->keyword . '%');
+                }
+
+                $items = $query->latest()->get();
             }
 
         } else {
