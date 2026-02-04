@@ -109,4 +109,11 @@ class ItemController extends Controller
 
         return redirect()->route('items.show', $item->id);
     }
+
+    public function purchase($item_id)
+    {
+        $item = Item::with('categories')->findOrFail($item_id);
+
+        return view('items.purchase', compact('item'));
+    }
 }

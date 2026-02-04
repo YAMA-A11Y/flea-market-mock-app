@@ -50,7 +50,7 @@
                     </div>
                 </div>
 
-                <a class="item-detail__buy" href="#">購入手続きへ</a>
+                <a class="item-detail__buy" href="{{route('items.purchase', $item->id) }}">購入手続きへ</a>
 
                 <section class="item-detail__section">
                     <h2 class="item-detail__heading">商品説明</h2>

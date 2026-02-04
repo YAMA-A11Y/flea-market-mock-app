@@ -32,6 +32,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/mypage/profile', [ProfileController::class, 'update']);
 });
 
+Route::get('/purchase/{item_id}', [ItemController::class, 'purchase'])->name('items.purchase');
+
 Route::middleware(['auth', 'profile'])->group(function () {
     //あとで
 });
