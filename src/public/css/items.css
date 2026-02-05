@@ -1,14 +1,7 @@
-/* =========================
-   Items index
-========================= */
-
 .items {
     padding: 24px 0 48px;
 }
 
-/* =========================
-   Items Tabs（おすすめ / マイリスト）
-========================= */
 .items-tabs {
     background: #fff;
     border-bottom: 1px solid #dcdcdc;
@@ -16,7 +9,6 @@
 
 .items-tabs__inner {
     max-width: 1200px;
-    /* ヘッダーと揃える */
     margin: 0 auto;
     height: 52px;
 
@@ -40,16 +32,11 @@
 
 .items-tabs__item.is-active {
     color: #ff2a2a;
-    /* アクティブ（赤） */
 }
 
 .items-tabs__item:hover {
     opacity: 0.8;
 }
-
-/* =========================
-   Items layout
-========================= */
 
 .items__inner {
     width: min(1200px, 92vw);
@@ -57,16 +44,11 @@
     padding: 0 28px;
 }
 
-/* グリッド（横並び） */
 .items__grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 28px;
 }
-
-/* =========================
-   Item card
-========================= */
 
 .item-card {
     background: transparent;
@@ -78,7 +60,6 @@
     text-decoration: none;
 }
 
-/* 画像枠：正方形にして崩れ防止 */
 .item-card__image {
     position: relative;
     width: 100%;
@@ -96,7 +77,6 @@
     display: block;
 }
 
-/* Sold */
 .item-card__sold {
     position: absolute;
     top: 8px;
@@ -112,7 +92,6 @@
     pointer-events: none;
 }
 
-/* 商品名 */
 .item-card__name {
     margin: 10px 0 0;
     font-size: 12px;
@@ -123,18 +102,13 @@
     opacity: 0.6;
 }
 
-/* 空表示 */
 .items__empty {
     margin: 24px 0 0;
     color: #666;
     font-size: 14px;
 }
 
-/* =========================
-   Responsive
-========================= */
-
-@media (max-width: 768px) {
+@media (max-width: 850px) {
     .items__grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 18px;
@@ -143,11 +117,5 @@
     .items-tabs__inner {
         gap: 24px;
         height: 48px;
-    }
-}
-
-@media (max-width: 480px) {
-    .items__grid {
-        grid-template-columns: 1fr;
     }
 }

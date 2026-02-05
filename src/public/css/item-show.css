@@ -1,7 +1,3 @@
-/* =========================
-   Item detail (mock)
-========================= */
-
 .item-detail {
     padding: 24px 0 56px;
 }
@@ -24,7 +20,6 @@
     justify-content: center;
 }
 
-/* 左：画像 */
 .item-detail__image {
     position: relative;
     width: 100%;
@@ -61,7 +56,6 @@
     opacity: 0.6;
 }
 
-/* 右：基本情報 */
 .item-detail__name {
     margin: 0 0 6px;
     font-size: 18px;
@@ -91,7 +85,6 @@
     color: #666;
 }
 
-/* お気に入り/コメント */
 .item-detail__meta {
     display: flex;
     gap: 18px;
@@ -108,7 +101,6 @@
 
 .meta-icon__img {
     width: 18px;
-    /* ← 課題画像に合わせて調整 */
     height: 18px;
     object-fit: contain;
     display: block;
@@ -118,7 +110,6 @@
     font-size: 12px;
 }
 
-/* いいねボタン */
 .like-btn {
     background: none;
     border: none;
@@ -127,7 +118,6 @@
     line-height: 1;
 }
 
-/* いいねアイコン画像 */
 .like-btn__img {
     width: 18px;
     height: 18px;
@@ -139,7 +129,6 @@
     opacity: 0.8;
 }
 
-/* 購入ボタン */
 .item-detail__buy {
     display: inline-flex;
     align-items: center;
@@ -162,7 +151,6 @@
     width: min(320px, 100%);
 }
 
-/* セクション */
 .item-detail__section {
     margin-top: 20px;
 }
@@ -179,7 +167,6 @@
     color: #333;
 }
 
-/* dl（商品の情報） */
 .item-detail__dl {
     display: grid;
     grid-template-columns: 120px 1fr;
@@ -207,7 +194,6 @@
     margin-right: 8px;
 }
 
-/* コメント */
 .comment {
     margin-top: 8px;
 }
@@ -239,7 +225,6 @@
     border-radius: 4px;
 }
 
-/* コメント入力 */
 .item-detail__textarea {
     width: 100%;
     min-height: 160px;
@@ -267,8 +252,7 @@
     opacity: 0.9;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 850px) {
     .item-detail__inner {
         padding: 0 16px;
     }

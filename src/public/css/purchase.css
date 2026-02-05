@@ -193,7 +193,7 @@
 }
 
 /* Responsive */
-@media (max-width: 768px) {
+@media (max-width: 850px) {
     .purchase__inner {
         padding: 0 16px;
     }
