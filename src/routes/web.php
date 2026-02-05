@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\MypageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,11 @@ Route::get('/purchase/{item_id}', [ItemController::class, 'purchase'])
 Route::post('/purchase/{item_id}', [ItemController::class, 'purchaseStore'])
     ->middleware('auth')
     ->name('items.purchase.store');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/mypage', [MypageController::class, 'index'])->name('mypage');
+    Route::get('/mypage/profile', [MypageController::class, 'profile'])->name('mypage.profile');
+});
 
 Route::middleware(['auth', 'profile'])->group(function () {
     //あとで
