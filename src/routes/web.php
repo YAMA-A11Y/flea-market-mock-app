@@ -36,6 +36,10 @@ Route::get('/purchase/{item_id}', [ItemController::class, 'purchase'])
     ->middleware('auth')
     ->name('items.purchase');
 
+Route::post('/purchase/{item_id}', [ItemController::class, 'purchaseStore'])
+    ->middleware('auth')
+    ->name('items.purchase.store');
+
 Route::middleware(['auth', 'profile'])->group(function () {
     //あとで
 });

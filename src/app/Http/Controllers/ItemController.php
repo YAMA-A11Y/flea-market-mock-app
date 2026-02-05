@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreItemCommentRequest;
+use App\Http\Requests\PurchaseStoreRequest;
 use App\Models\Item;
 use App\Models\Like;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -118,6 +120,25 @@ class ItemController extends Controller
     {
         $item = Item::with('categories')->findOrFail($item_id);
 
+        if ($item->sold) {
+            return redirect()->route('items.index');
+        }
+
         return view('items.purchase', compact('item'));
+    }
+
+    public function purchaseStore(PurchaseStoreRequest $request, $item_id)
+    {
+        DB::transaction(function () use ($item_id) {
+            $item = Item::where('id', $item_id)->lockForUpdate()->firstOrFail();
+
+            if ($item->is_sold) {
+                abort(409, 'Sold out');
+            }
+
+           $item->update(['is_sold' => true]);
+        });
+
+        return redirect()->route('items.index');
     }
 }

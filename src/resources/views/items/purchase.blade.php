@@ -28,7 +28,7 @@
                     <h3 class="purchase-section__title">支払い方法</h3>
 
                     <div class="purchase-section__body purchase-section__body--select">
-                        <select class="purchase-select" name="payment_method" id="payment-method">
+                        <select class="purchase-select" id="payment-method">
                             <option value="" selected>選択してください</option>
                             <option value="convenience">コンビニ払い</option>
                             <option value="card">カード支払い</option>
@@ -74,7 +74,16 @@
                     </div>
                 </div>
 
-                <button class="purchase-btn" type="button">購入する</button>
+                <form action="{{ route('items.purchase.store', $item->id) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="payment_method" id="payment_method" value="">
+
+                    <button class="purchase-btn" type="submit" {{ $item->is_sold ? 'disabled' : '' }}>購入する</button>
+
+                    @error('payment_method')
+                        <p class="form-error">{{ $message }}</p>
+                    @enderror
+                </form>                
             </aside>
         </div>
     </div>    
@@ -84,6 +93,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const select = document.getElementById('payment-method');
   const label = document.querySelector('.js-payment-label');
+  const hidden = document.getElementById('payment_method');
 
   const textMap = {
     convenience: 'コンビニ払い',
@@ -93,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const reflect = () => {
     const v = select.value;
     label.textContent = textMap[v] ?? '選択してください';
+    hidden.value = (v in textMap) ? v : '';
   };
 
   reflect();
