@@ -41,6 +41,14 @@ Route::post('/purchase/{item_id}', [ItemController::class, 'purchaseStore'])
     ->middleware('auth')
     ->name('items.purchase.store');
 
+Route::get('/purchase/address/{item_id}', [ItemController::class, 'editAddress'])
+    ->middleware('auth')
+    ->name('purchase.address.edit');
+
+Route::patch('/purchase/address/{item_id}', [ItemController::class, 'updateAddress'])
+    ->middleware('auth')
+    ->name('purchase.address.update');
+
 Route::middleware('auth')->group(function () {
     Route::get('/mypage', [MypageController::class, 'index'])->name('mypage');
     Route::get('/mypage/profile', [MypageController::class, 'profile'])->name('mypage.profile');

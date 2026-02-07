@@ -41,19 +41,15 @@
                 <section class="purchase-section">
                     <div class="purchase-section__head">
                         <h3 class="purchase-section__title">配送先</h3>
-                        <a class="purchase-link" href="{{ url('/mypage/profile') }}">変更する</a>
+                        <a class="purchase-link" href="{{ route('purchase.address.edit', $item->id) }}">変更する</a>
                     </div>
 
                     <div class="purchase-section__body">
-                        @php
-                            $u = Auth::user();
-                        @endphp
-
-                        <p class="purchase-address">〒 {{ $u->postcode ?? '---' }}</p>
+                        <p class="purchase-address">〒 {{ $addr['postcode'] ?? '---' }}</p>
                         <p class="purchase-address">
-                            {{ $u->address ?? '住所が未設定です'}}
-                            @if (!empty($u->building))
-                                {{ $u->building}}
+                            {{ $addr['address'] ?? '---' }}
+                            @if (!empty($addr['building']))
+                                {{ $addr['building'] }}
                             @endif
                         </p>
                     </div>

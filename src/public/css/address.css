@@ -1,0 +1,107 @@
+/* =========================
+   Address edit page
+   (/purchase/address/{item})
+========================= */
+
+.address {
+    padding: 28px 0 56px;
+}
+
+.address__inner {
+    width: min(720px, 92vw);
+    margin: 0 auto;
+    padding: 0 28px;
+}
+
+.address__title {
+    margin: 0 0 40px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* =========================
+   Form
+========================= */
+
+.address-form {
+    width: 100%;
+    max-width: 460px;
+    margin: 0 auto;
+    display: grid;
+    gap: 32px;
+}
+
+.address-form__group {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    border-bottom: none;
+}
+
+.address-form__label {
+    font-size: 16px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 2px;
+}
+
+.address-form__input {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #bdbdbd;
+    border-radius: 4px;
+    background: #fff;
+    font-size: 16px;
+}
+
+.address-form__input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.25);
+}
+
+/* エラーメッセージ */
+.form-error {
+    margin-top: 6px;
+    font-size: 12px;
+    color: #d93025;
+}
+
+/* =========================
+   Actions
+========================= */
+
+.address-form__actions {
+    margin-top: 48px;
+    display: flex;
+    justify-content: center;
+}
+
+.address-form__submit {
+    width: 100%;
+    height: 44px;
+    border: none;
+    border-radius: 4px;
+    /* 四角寄り */
+    background: #ff5a5a;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.address-form__submit:hover {
+    opacity: 0.9;
+}
+
+/* =========================
+   Responsive (tablet)
+   768–850px
+========================= */
+@media (max-width: 850px) {
+    .address__inner {
+        padding: 0 16px;
+    }
+}

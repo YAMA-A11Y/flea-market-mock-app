@@ -16,6 +16,9 @@ class Item extends Model
         'condition',
         'image_path',
         'is_sold',
+        'shipping_postcode',
+        'shipping_address',
+        'shipping_building',
     ];
 
     public function user()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreItemCommentRequest;
 use App\Http\Requests\PurchaseStoreRequest;
+use App\Http\Requests\AddressRequest;
 use App\Models\Item;
 use App\Models\Like;
 use App\Models\Comment;
@@ -120,11 +121,46 @@ class ItemController extends Controller
     {
         $item = Item::with('categories')->findOrFail($item_id);
 
-        if ($item->sold) {
+        if ($item->is_sold) {
             return redirect()->route('items.index');
         }
 
-        return view('items.purchase', compact('item'));
+        $user = Auth::user();
+
+        $addr = session("purchase_address.{$item_id}", [
+            'postcode' => $user->postcode,
+            'address' => $user->address,
+            'building' => $user->building,
+        ]);
+
+        return view('items.purchase', compact('item', 'addr'));
+    }
+
+    public function editAddress($item_id)
+    {
+        $item = Item::findOrFail($item_id);
+        $user = Auth::user();
+
+        $addr = session("purchase_address.{$item_id}", [
+            'postcode' => $user->postcode,
+            'address' => $user->address,
+            'building' => $user->building,
+        ]);
+
+        return view('purchase.address', compact('item', 'addr'));
+    }
+
+    public function updateAddress(AddressRequest $request, $item_id)
+    {
+        $validated = $request->validated();
+
+        session()->put("purchase_address.{$item_id}", [
+            'postcode' => $validated['postcode'],
+            'address' => $validated['address'],
+            'building' => $request->building,
+        ]);
+
+        return redirect()->route('items.purchase', $item_id);
     }
 
     public function purchaseStore(PurchaseStoreRequest $request, $item_id)
@@ -136,7 +172,25 @@ class ItemController extends Controller
                 abort(409, 'Sold out');
             }
 
-           $item->update(['is_sold' => true]);
+            $addr = session("purchase_address.{$item_id}");
+            
+            if (!$addr) {
+                $u = Auth::user();
+                $addr = [
+                    'postcode' => $u->postcode,
+                    'address' => $u->address,
+                    'building' => $u->building,
+                ];
+            }
+
+           $item->update([
+            'is_sold' => true,
+            'shipping_postcode' => $addr['postcode'],
+            'shipping_address' => $addr['address'],
+            'shipping_building' => $addr['building'] ?? null,
+            ]);
+
+            session()->forget("purchase_address.{$item_id}");
         });
 
         return redirect()->route('items.index');
