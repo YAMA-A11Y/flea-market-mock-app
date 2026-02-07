@@ -1,29 +1,19 @@
-/* =========================
-   Login page (for login.blade.php classes)
-========================= */
-
-/* ヘッダー(64px)下の領域を「縦いっぱい感」出しつつ中央寄せ */
 .auth {
     min-height: calc(100vh - 64px);
     padding: 80px 16px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* 縦方向中央 */
     align-items: center;
-    /* 横方向中央 */
 }
 
-/* 画像のように細めで中央配置 */
 .auth__inner {
     width: 100%;
     max-width: 480px;
     margin: 0 auto;
     text-align: center;
-    /* タイトル・リンクは中央 */
 }
 
-/* タイトル */
 .auth__heading {
     margin-bottom: 36px;
 }
@@ -31,23 +21,18 @@
 .auth__title {
     margin: 0;
     font-size: 28px;
-    /* ログイン文字を大きめ */
     font-weight: 700;
 }
 
-/* フォーム本体は左寄せ */
 .auth__form {
     width: 100%;
     text-align: left;
-    /* ラベル文字を左寄せにする核 */
 }
 
-/* 入力ブロック同士の余白（ここを増やすと間が広がる） */
 .form__group {
     margin-bottom: 36px;
 }
 
-/* ラベル（メールアドレス／パスワード） */
 .form__label {
     display: block;
     margin-bottom: 8px;
@@ -56,7 +41,6 @@
     text-align: left;
 }
 
-/* 入力欄（ボタンと同じ幅） */
 .form-input {
     width: 100%;
     height: 42px;
@@ -72,7 +56,6 @@
     border-color: #888;
 }
 
-/* エラー表示（認証エラー含む） */
 .form__error {
     margin: 6px 0 0;
     font-size: 12px;
@@ -80,10 +63,8 @@
     text-align: left;
 }
 
-/* ボタン */
 .form-actions {
     padding-top: 36px;
-    /* 入力欄の直後なので控えめに */
 }
 
 .btn {
@@ -96,7 +77,6 @@
 .btn--primary {
     display: block;
     width: 100%;
-    /* 入力欄と幅を揃える */
     height: 44px;
     background: #ff5a5a;
     color: #fff;
@@ -107,7 +87,6 @@
     filter: brightness(0.97);
 }
 
-/* 会員登録リンク */
 .auth__link {
     margin-top: 24px;
     text-align: center;

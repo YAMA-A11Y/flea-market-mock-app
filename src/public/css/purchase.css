@@ -1,7 +1,3 @@
-/* =========================
-   Purchase page
-========================= */
-
 .purchase {
     padding: 28px 0 56px;
 }
@@ -18,10 +14,6 @@
     gap: 48px;
     align-items: start;
 }
-
-/* =========================
-   Left
-========================= */
 
 .purchase-item {
     display: grid;
@@ -94,7 +86,6 @@
     padding: 0 34px 0 10px;
     background: #fff;
 
-    /* 右側の▼を自前で出すため */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -102,7 +93,6 @@
     position: relative;
 }
 
-/* select 右側の▼（擬似的） */
 .purchase-section__body--select {
     position: relative;
     width: fit-content;
@@ -119,7 +109,6 @@
     pointer-events: none;
 }
 
-/* フォーカス時（クリックしたとき） */
 .purchase-select:focus {
     outline: none;
     border-color: #4a90e2;
@@ -141,10 +130,6 @@
     font-size: 12px;
     color: #111;
 }
-
-/* =========================
-   Right (summary box)
-========================= */
 
 .purchase-summary {
     border: 1px solid #999;
@@ -192,7 +177,6 @@
     opacity: 0.9;
 }
 
-/* Responsive */
 @media (max-width: 850px) {
     .purchase__inner {
         padding: 0 16px;
@@ -204,13 +188,8 @@
     }
 }
 
-/* =========================
-   Validation error
-========================= */
-
 .form-error {
     margin-top: 8px;
     font-size: 12px;
     color: #e53935;
-    /* 赤 */
 }

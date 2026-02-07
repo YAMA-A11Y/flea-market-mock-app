@@ -1,21 +1,12 @@
-/* =========================
-   Register page (matches register.blade.php classes)
-   - similar vibe to login page
-========================= */
-
-/* ヘッダー(64px)下の領域を「縦いっぱい感」出しつつ中央寄せ */
 .register-form__content {
     min-height: calc(100vh - 64px);
     padding: 80px 16px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* 縦方向中央 */
     align-items: center;
-    /* 横方向中央 */
 }
 
-/* タイトル＋フォームの幅 */
 .register-form__heading {
     width: 100%;
     max-width: 480px;
@@ -29,7 +20,6 @@
     font-weight: 700;
 }
 
-/* フォーム全体 */
 .form {
     width: 100%;
     max-width: 480px;
@@ -37,12 +27,10 @@
     text-align: left;
 }
 
-/* 各入力ブロック（余白） */
 .form__group {
     margin-bottom: 28px;
 }
 
-/* ラベル */
 .form__group-title {
     margin-bottom: 8px;
 }
@@ -54,7 +42,6 @@
     text-align: left;
 }
 
-/* 入力欄 */
 .form__input--text input {
     width: 100%;
     height: 42px;
@@ -70,7 +57,6 @@
     border-color: #888;
 }
 
-/* エラー */
 .form__error {
     margin-top: 6px;
     font-size: 12px;
@@ -78,7 +64,6 @@
     text-align: left;
 }
 
-/* ボタン */
 .form__button {
     padding-top: 28px;
 }
@@ -100,7 +85,6 @@
     filter: brightness(0.97);
 }
 
-/* ログインリンク */
 .auth__link {
     margin-top: 24px;
     text-align: center;
