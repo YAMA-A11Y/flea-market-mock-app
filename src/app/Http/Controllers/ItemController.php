@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreItemCommentRequest;
-use App\Http\Requests\PurchaseStoreRequest;
+use App\Http\Requests\CommentRequest;
+use App\Http\Requests\PurchaseRequest;
 use App\Http\Requests\AddressRequest;
 use App\Models\Item;
 use App\Models\Like;
@@ -104,7 +104,7 @@ class ItemController extends Controller
         ]);
     }
 
-    public function storeComment(StoreItemCommentRequest $request, $item_id)
+    public function storeComment(CommentRequest $request, $item_id)
     {
         $item = Item::findOrFail($item_id);
 
@@ -163,7 +163,7 @@ class ItemController extends Controller
         return redirect()->route('items.purchase', $item_id);
     }
 
-    public function purchaseStore(PurchaseStoreRequest $request, $item_id)
+    public function purchaseStore(PurchaseRequest $request, $item_id)
     {
         DB::transaction(function () use ($item_id) {
             $item = Item::where('id', $item_id)->lockForUpdate()->firstOrFail();
