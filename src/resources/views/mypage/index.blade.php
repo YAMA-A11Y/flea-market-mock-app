@@ -11,7 +11,9 @@
         <section class="mypage-profile">
             <div class="mypage-profile__left">
                 <div class="mypage-profile__avatar">
-                    {{-- <img src="{{ asset('storage/' . $user->profile_image) }}" alt="avatar"> --}}
+                    @if (!empty($user->profile_image))
+                        <img class="mypage-profile__avatar-img" src="{{ asset('storage/' . $user->profile_image) }}" alt="プロフィール画像">
+                    @endif
                 </div>
 
                 <div class="mypage-profile__name">

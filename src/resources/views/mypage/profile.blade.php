@@ -14,7 +14,11 @@
     @csrf
 
     <div class="profile-form__image">
-      <div class="profile-form__image-preview"></div>
+      <div class="profile-form__image-preview">
+        @if (!empty($user->profile_image))
+          <img class ="profile-form__image-img" src="{{ asset('storage/' . $user->profile_image) }}" alt="プロフィール画像">
+        @endif
+      </div>
 
       <label class="profile-form__image-button">
         <input class="profile-form__image-input" type="file" name="profile_image" accept="image/*">
