@@ -27,37 +27,39 @@
         </section>
 
         @php
-            $tab = request('tab', 'sell'); // sell / buy
+            $page = request('page', 'sell'); // sell / buy
         @endphp
 
         <nav class="mypage-tabs">
-            <a class="mypage-tabs__item {{ $tab === 'sell' ? 'is-active' : '' }}" href="{{ url('mypage') }}?tab=sell">出品した商品</a>
+            <a class="mypage-tabs__item {{ $page === 'sell' ? 'is-active' : '' }}" href="{{ url('mypage') }}?page=sell">出品した商品</a>
 
-            <a class="mypage-tabs__item {{ $tab === 'buy' ? 'is-active' : '' }}" href="{{ url('mypage') }}?tab=buy">購入した商品</a>
+            <a class="mypage-tabs__item {{ $page === 'buy' ? 'is-active' : '' }}" href="{{ url('mypage') }}?page=buy">購入した商品</a>
         </nav>
 
         <div class="mypage-sep"></div>
 
         <section class="mypage-items">
-            <div class="mypage-items__grid">
+            @if ($page === 'sell')            
+                <div class="mypage-items__grid">
 
-                @forelse ($items as $item)
-                    <article class="mypage-card">
-                        <a class="mypage-card==link" href="{{ route('items.show', $item->id) }}">
-                            <div class="mypage-card__image">
-                                <img class="mypage-card__img" src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" loading="lazy">
-                            </div>
+                    @forelse ($items as $item)
+                        <article class="mypage-card">
+                            <a class="mypage-card__link" href="{{ route('items.show', $item->id) }}">
+                                <div class="mypage-card__image">
+                                    <img class="mypage-card__img" src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" loading="lazy">
+                                </div>
 
-                            <div class="mtpage-card__name">
-                                {{ $item->name }}
-                            </div>
-                        </a>
-                    </article>
-                @empty
-                    <p class="mypage-items__empty">表示する商品がありません</p>
-                @endforelse
+                                <div class="mypage-card__name">
+                                    {{ $item->name }}
+                                </div>
+                            </a>
+                        </article>
+                    @empty
+                        <p class="mypage-items__empty">表示する商品がありません</p>
+                    @endforelse
 
-            </div>
+                </div>
+            @endif
         </section>
 
     </div>

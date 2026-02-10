@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CommentRequest;
 use App\Http\Requests\PurchaseRequest;
 use App\Http\Requests\AddressRequest;
+use App\Http\Requests\ExhibitionRequest;
 use App\Models\Item;
 use App\Models\Like;
 use App\Models\Comment;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -76,6 +79,32 @@ class ItemController extends Controller
             'isLiked',
             'comments'
         ));
+    }
+
+    public function create()
+    {
+        return view('items.sell');
+    }
+
+    public function store(ExhibitionRequest $request)
+    {
+        $path = $request->file('image')->store('items', 'public');
+
+        $item = Item::create([
+            'user_id' => Auth::id(),
+            'name' => $request->name,
+            'brand' => $request->brand,
+            'description' => $request->description,
+            'condition' => $request->condition,
+            'price' => $request->price,
+            'image_path' => $path,
+            'is_sold' => false,
+        ]);
+
+        $categoryIds = Category::whereIn('name', $request->categories)->pluck('id')->all();
+        $item->categories()->sync($categoryIds);
+        
+        return redirect()->route('items.index');
     }
 
     public function toggleLike($item_id)
@@ -194,5 +223,5 @@ class ItemController extends Controller
         });
 
         return redirect()->route('items.index');
-    }
+    }    
 }

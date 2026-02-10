@@ -40,7 +40,7 @@
 
                     <a class="header__action" href="{{ url('/mypage') }}">マイページ</a>
 
-                    <a class="header__action header__action--primary" href="#">出品</a>
+                    <a class="header__action header__action--primary" href="{{ route('items.sell') }}">出品</a>
 
                 @endif
             </div>

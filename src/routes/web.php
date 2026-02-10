@@ -20,6 +20,14 @@ Route::get('/', [ItemController::class, 'index'])->name('items.index');
 
 Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show');
 
+Route::get('/sell', [ItemController::class, 'create'])
+    ->middleware('auth')
+    ->name('items.sell');
+
+Route::post('/sell', [ItemController::class, 'store'])
+    ->middleware('auth')
+    ->name('items.sell.store');
+
 Route::post('/item/{item_id}/like', [ItemController::class, 'toggleLike'])
     ->middleware('auth')
     ->name('items.like');
@@ -29,6 +37,7 @@ Route::post('/item/{item_id}/comment', [ItemController::class, 'storeComment'])
     ->name('items.comment');
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/mypage', [MypageController::class, 'index'])->name('mypage');
     Route::get('/mypage/profile', [ProfileController::class, 'edit']);
     Route::post('/mypage/profile', [ProfileController::class, 'update']);
 });
@@ -49,12 +58,6 @@ Route::patch('/purchase/address/{item_id}', [ItemController::class, 'updateAddre
     ->middleware('auth')
     ->name('purchase.address.update');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/mypage', [MypageController::class, 'index'])->name('mypage');
-    Route::get('/mypage/profile', [MypageController::class, 'profile'])->name('mypage.profile');
-});
-
 Route::middleware(['auth', 'profile'])->group(function () {
     //あとで
 });
-
