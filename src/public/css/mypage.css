@@ -108,10 +108,11 @@
 }
 
 .mypage-card__image {
+    position: relative;
     width: 100%;
     aspect-ratio: 1 / 1;
     background: #e6e6e6;
-    border-radius: 2px;
+    border-radius: 6px;
     overflow: hidden;
     margin-bottom: 8px;
 }
@@ -126,6 +127,25 @@
 .mypage-card__name {
     font-size: 12px;
     color: #111;
+}
+
+.mypage-card__sold {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: #d32f2f;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 4px 6px;
+    border-radius: 4px;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.mypage-card__image.is-sold .mypage-card__img {
+    opacity: 0.6;
 }
 
 .mypage-items__empty {

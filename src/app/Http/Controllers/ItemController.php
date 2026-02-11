@@ -10,6 +10,7 @@ use App\Models\Item;
 use App\Models\Like;
 use App\Models\Comment;
 use App\Models\Category;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -211,6 +212,12 @@ class ItemController extends Controller
                     'building' => $u->building,
                 ];
             }
+
+            Order::create([
+                'user_id' => Auth::id(),
+                'item_id' => $item->id,
+                'price' => $item->price,
+            ]);
 
            $item->update([
             'is_sold' => true,

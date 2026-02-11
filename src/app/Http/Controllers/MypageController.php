@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,16 +14,25 @@ class MypageController extends Controller
         $user = Auth::user();
         $page = $request->query('page', 'sell');
 
+        $items = collect();
+        $orders = collect();
+
         if ($page === 'sell') {
             $items = Item::query()
                 ->where('user_id', $user->id)
                 ->latest()
                 ->get();
-        } else {
-            $items = collect();
         }
 
-        return view('mypage.index', compact('user', 'items', 'page'));
+        if ($page === 'buy') {
+            $orders = Order::query()
+                ->where('user_id', $user->id)
+                ->with('item')
+                ->latest()
+                ->get();
+        }
+
+        return view('mypage.index', compact('user', 'items', 'orders', 'page'));
     }
 
     public function profile()

@@ -45,8 +45,12 @@
                     @forelse ($items as $item)
                         <article class="mypage-card">
                             <a class="mypage-card__link" href="{{ route('items.show', $item->id) }}">
-                                <div class="mypage-card__image">
+                                <div class="mypage-card__image {{ $item->is_sold ? 'is-sold' : '' }}">
                                     <img class="mypage-card__img" src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" loading="lazy">
+
+                                    @if ($item->is_sold)
+                                        <span class="mypage-card__sold">SOLD</span>
+                                    @endif
                                 </div>
 
                                 <div class="mypage-card__name">
@@ -57,7 +61,30 @@
                     @empty
                         <p class="mypage-items__empty">表示する商品がありません</p>
                     @endforelse
+                </div>
+            @endif
 
+            @if ($page === 'buy')
+                <div class="mypage-items__grid">
+
+                    @forelse ($orders as $order)
+                        @php($item = $order->item)
+                        @continue(!$item)
+
+                        <article class="mypage-card">
+                            <a class="mypage-card__link" href="{{ route('items.show', $item->id) }}">
+                                <div class="mypage-card__image {{ $item->is_sold ? 'is-sold' : '' }}">
+                                    <img class="mypage-card__img" src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" loading="lazy">
+
+                                    @if ($item->is_sold)
+                                        <span class="mypage-card__sold">SOLD</span>
+                                    @endif
+                                <div>                             
+                            </a>
+                        </article>
+                    @empty
+                        <p class="mypage-items__empty">購入した商品がありません</p>
+                    @endforelse
                 </div>
             @endif
         </section>
