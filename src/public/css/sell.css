@@ -17,7 +17,7 @@
 
 .sell-form {
     width: 100%;
-    max-width: 460px;
+    max-width: 480px;
     margin: 0 auto;
 }
 
@@ -137,7 +137,9 @@
 .sell-category {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px 12px;
+    gap: 24px 10px;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .sell-category__checkbox {
@@ -159,13 +161,14 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 4px 10px;
+    padding: 6px 12px;
     border: 1px solid #ff5a5a;
     border-radius: 999px;
     background: #fff;
     color: #ff5a5a;
-    font-size: 12px;
+    font-size: 11px;
     line-height: 1;
+    white-space: nowrap;
 }
 
 .sell-category__chip:hover {
@@ -276,5 +279,8 @@
 @media (max-width: 850px) {
     .sell__inner {
         padding: 0 16px;
+    }
+    .sell-category {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
