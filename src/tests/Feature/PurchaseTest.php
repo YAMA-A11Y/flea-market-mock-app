@@ -91,4 +91,23 @@ class PurchaseTest extends TestCase
         $page->assertStatus(200);
         $page->assertSee('購入一覧に出る商品');
     }
+
+    public function test_purchase_page_shows_payment_method_select()
+    {
+        $buyer = User::factory()->create();
+        $seller = User::factory()->create();
+        $item = Item::factory()->create([
+            'user_id' => $seller->id,
+            'is_sold' => false,
+        ]);
+
+        $response = $this->actingAs($buyer)->get(route('items.purchase', ['item_id' => $item->id]));
+
+        $response->assertStatus(200);
+        $response->assertSee('id="payment-method"', false);
+        $response->assertSee('name="payment_method"', false);
+        $response->assertSee('選択してください');
+        $response->assertSee('コンビニ払い');
+        $response->assertSee('カード支払い');
+    }
 }
