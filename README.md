@@ -75,7 +75,7 @@ docker-compose exec php vendor/bin/phpunit
 - 商品出品：http://localhost/sell
 - マイページ：http://localhost/mypage
 - プロフィール編集：http://localhost/mypage/profile
-- プロフィール編集：http://localhost/mypage/profile
+- 購入ページ：http://localhost/purchase/{item_id}
 - 会員登録：http://localhost/register
 - ログイン：http://localhost/login
 - phpMyAdmin(DB確認用)：http://localhost:8080
