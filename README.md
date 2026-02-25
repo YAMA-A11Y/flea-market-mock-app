@@ -68,6 +68,20 @@ PHPUnitによる機能テストを実装済み。
 docker-compose exec php vendor/bin/phpunit
 ```
 
+### テスト用アカウント
+
+以下のアカウントをシーダーで作成しています。
+
+- 出品者A
+　email: seller_a@example.com
+　password: password
+
+- 出品者B
+　email: seller_b@example.com
+　password: password
+
+※`php artisan migrate --seed`実行後にログイン可能です。
+
 ## URL
 
 - 商品一覧：http://localhost/
