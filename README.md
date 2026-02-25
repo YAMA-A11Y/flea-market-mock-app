@@ -46,6 +46,12 @@ php artisan migrate --seed
 
 ※ テーブル作成（migration）とダミーデータ作成（seeding）を同時に実行します。
 
+6. ストレージのシンボリックリンクを作成する（画像表示に必要）
+
+```bash
+php artisan storage:link
+```
+
 ## 使用技術(実行環境)
 
 - Docker
