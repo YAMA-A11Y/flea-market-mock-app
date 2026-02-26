@@ -10,10 +10,14 @@ class LoginResponse implements LoginResponseContract
     {
         $user = $request->user();
 
-        if (!$user->profile_completed) {
-            return redirect('/mypage/profile');
+        if ($user && !$user->hasVerifiedEmail()) {
+            return redirect()->route('verification.notice');
         }
 
-        return redirect()->intended('/');
+        if ($user && !$user->profile_completed) {
+            return redirect()->route('profile.edit');
+        }
+
+        return redirect()->intended(config('fortify.home'));
     }
 }

@@ -19,7 +19,7 @@
                 <img src="{{ asset('images/COACHTECHヘッダーロゴ.png') }}" alt="COACHTECH">
             </a>
 
-            @if (!request()->routeIs('login') && !request()->routeIs('register'))
+            @if (!request()->routeIs('login') && !request()->routeIs('register') && !request()->routeIs('verification.notice'))
                 <form class="header__search" method="get" action="{{ route('items.index') }}">
                     <input type="hidden" name="tab" value="{{ request('tab', 'recommend') }}">
                     <input class="header-search__input" type="text" name="keyword" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
@@ -27,7 +27,7 @@
             @endif
 
             <div class="header__right">
-                @if (!request()->routeIs('login') && !request()->routeIs('register')) 
+                @if (!request()->routeIs('login') && !request()->routeIs('register') && !request()->routeIs('verification.notice')) 
 
                     @auth
                         <form method="post" action="{{ route('logout') }}">

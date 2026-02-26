@@ -60,7 +60,8 @@ php artisan storage:link
 - MySQL 8.0.26
 - nginx 1.21.1
 - Laravel Fortify
-- JavaScript（Plain JavaScript）
+- JavaScript(Plain JavaScript)
+- Mailhog
 
 ## ER 図
 
@@ -99,3 +100,4 @@ docker-compose exec php vendor/bin/phpunit
 - 会員登録：http://localhost/register
 - ログイン：http://localhost/login
 - phpMyAdmin(DB確認用)：http://localhost:8080
+- メール確認(Mailhog)：http://localhost:8025
