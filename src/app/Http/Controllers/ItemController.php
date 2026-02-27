@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use Stripe\Stripe;
+use Stripe\Checkout\Session as StripeSession;
 
 class ItemController extends Controller
 {
@@ -195,6 +197,18 @@ class ItemController extends Controller
 
     public function purchaseStore(PurchaseRequest $request, $item_id)
     {
+        $paymentMethod = $request->payment_method;
+
+        $addr = session("purchase_address.{$item_id}");
+        if (!$addr) {
+            $u = Auth::user();
+            $addr = [
+                'postcode' => $u->postcode,
+                'address' => $u->address,
+                'building' => $u->building,
+            ];
+        }    
+    
         DB::transaction(function () use ($item_id) {
             $item = Item::where('id', $item_id)->lockForUpdate()->firstOrFail();
 
@@ -229,6 +243,41 @@ class ItemController extends Controller
             session()->forget("purchase_address.{$item_id}");
         });
 
+        if (in_array($paymentMethod, ['card', 'convenience'], true)) {
+
+            if (app()->environment('testing')) {
+                return redirect()->route('items.index');
+            }
+
+            \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+
+            $stripePaymentTypes = $paymentMethod === 'convenience'
+                ? ['konbini']
+                : ['card'];
+
+            $item = Item::findOrFail($item_id);
+
+            $session = \Stripe\Checkout\Session::create([
+                'mode' => 'payment',
+                'payment_method_types' => $stripePaymentTypes,
+                'line_items' => [[
+                    'price_data' => [
+                        'currency' => 'jpy',
+                        'product_data' => [
+                            'name' => $item->name,
+                        ],
+                        'unit_amount' => (int) $item->price,
+                    ],
+                    'quantity' => 1,
+                ]],
+                'customer_email' => Auth::user()->email,
+                'success_url' => route('items.index', [], true),
+                'cancel_url' => route('items.index', [], true),
+            ]);
+
+            return redirect()->away($session->url);
+        }
+    
         return redirect()->route('items.index');
     }    
 }

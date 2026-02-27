@@ -1,5 +1,7 @@
 # flea-market-mock-app
 
+---
+
 ## 環境構築
 
 ### Docker ビルド
@@ -7,6 +9,8 @@
 ```bash
 docker-compose up -d --build
 ```
+
+---
 
 ### Laravel 環境構築
 
@@ -52,6 +56,34 @@ php artisan migrate --seed
 php artisan storage:link
 ```
 
+---
+
+## Stripe決済機能について
+
+本アプリでは Stripe Checkout を利用した決済機能を実装しています。
+
+### 対応支払い方法
+
+- カード決済
+- コンビニ決済
+
+### Stripeキーの設定
+
+`.env` に以下を追加してください。
+
+```env
+STRIPE_SECRET=sk_test_xxxxxxxxxxxxx
+```
+
+※ Stripe ダッシュボードの「開発者 > APIキー」から取得できます。
+
+### テスト環境について
+
+PHPUnit 実行時は外部API通信を行わないように制御しています。  
+そのためテストは正常に通ります。
+
+---
+
 ## 使用技術(実行環境)
 
 - Docker
@@ -60,12 +92,18 @@ php artisan storage:link
 - MySQL 8.0.26
 - nginx 1.21.1
 - Laravel Fortify
+- Stripe Checkout
+- PHPUnit
 - JavaScript(Plain JavaScript)
 - Mailhog
+
+---
 
 ## ER 図
 
 ![ER図](src/docs/er-diagram.png)
+
+---
 
 ## テスト
 
@@ -88,6 +126,8 @@ docker-compose exec php vendor/bin/phpunit
 　password: password
 
 ※`php artisan migrate --seed`実行後にログイン可能です。
+
+---
 
 ## URL
 
