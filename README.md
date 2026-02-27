@@ -75,8 +75,6 @@ php artisan storage:link
 STRIPE_SECRET=sk_test_xxxxxxxxxxxxx
 ```
 
-※ Stripe ダッシュボードの「開発者 > APIキー」から取得できます。
-
 ### テスト環境について
 
 PHPUnit 実行時は外部API通信を行わないように制御しています。  
