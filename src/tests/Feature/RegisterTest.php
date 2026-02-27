@@ -90,7 +90,7 @@ class RegisterTest extends TestCase
 
         $response = $this->post('/register', $payload);
 
-        $response->assertRedirect('/mypage/profile');
+        $response->assertRedirect(route('verification.notice'));
         
         $this->assertDatabaseHas('users', [
             'email' => $payload['email'],
