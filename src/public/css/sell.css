@@ -54,8 +54,19 @@
     border-radius: 4px;
     background: #fff;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    gap: 8px;
+    padding: 8px 12px;
+}
+
+.sell-image__preview {
+    max-width: 100%;
+    height: calc(100% - 42px);
+    object-fit: contain;
+    display: block;
 }
 
 .sell-image__button {

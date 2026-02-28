@@ -19,6 +19,8 @@
 
                     <div class="sell-image">
                         <div class="sell-image__box">
+                            <img class= "sell-image__preview" id="sell-preview" src="" alt="商品画像プレビュー">
+
                             <label class="sell-image__button">
                                 <input class="sell-image__input" type="file" name="image" accept=".jpeg,.jpg,.png">
                                 画像を選択する
@@ -147,4 +149,30 @@
 
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.querySelector('.sell-image__input');
+            const preview = document.getElementById('sell-preview');
+
+            if (!input || !preview) return;
+
+            preview.style.display = 'none';
+            preview.removeAttribute('alt');
+
+            input.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    preview.src = event.target.result;
+                    preview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
 @endsection
