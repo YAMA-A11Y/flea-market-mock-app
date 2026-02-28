@@ -249,7 +249,7 @@ class ItemController extends Controller
                 return redirect()->route('items.index');
             }
 
-            \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+            Stripe::setApiKey(config('services.stripe.secret'));
 
             $stripePaymentTypes = $paymentMethod === 'convenience'
                 ? ['konbini']
@@ -257,7 +257,7 @@ class ItemController extends Controller
 
             $item = Item::findOrFail($item_id);
 
-            $session = \Stripe\Checkout\Session::create([
+            $session = StripeSession::create([
                 'mode' => 'payment',
                 'payment_method_types' => $stripePaymentTypes,
                 'line_items' => [[
@@ -279,5 +279,5 @@ class ItemController extends Controller
         }
     
         return redirect()->route('items.index');
-    }    
+    }
 }

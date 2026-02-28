@@ -1,94 +1,99 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/common.css') }}">
-<link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/common.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/mypage.css') }}">
 @endsection
 
 @section('content')
-<div class="mypage">
-    <div class="mypage__inner">
-        <section class="mypage-profile">
-            <div class="mypage-profile__left">
-                <div class="mypage-profile__avatar">
-                    @if (!empty($user->profile_image))
-                        <img class="mypage-profile__avatar-img" src="{{ asset('storage/' . $user->profile_image) }}" alt="プロフィール画像">
-                    @endif
+    <div class="mypage">
+        <div class="mypage__inner">
+            <section class="mypage-profile">
+                <div class="mypage-profile__left">
+                    <div class="mypage-profile__avatar">
+                        @if (!empty($user->profile_image))
+                            <img class="mypage-profile__avatar-img" src="{{ asset('storage/' . $user->profile_image) }}"
+                                alt="プロフィール画像">
+                        @endif
+                    </div>
+
+                    <div class="mypage-profile__name">
+                        {{ $user->name ?? 'ユーザー名' }}
+                    </div>
                 </div>
 
-                <div class="mypage-profile__name">
-                    {{ $user->name ?? 'ユーザー名'}}
+                <div class="mypage__right">
+                    <a class="mypage-profile__edit" href="{{ url('/mypage/profile') }}">プロフィールを編集</a>
                 </div>
-            </div>
+            </section>
 
-            <div class="mypage__right">
-                <a class="mypage-profile__edit" href="{{ url('/mypage/profile') }}">プロフィールを編集</a>
-            </div>
-        </section>
+            @php
+                $page = request('page', 'sell'); // sell / buy
+            @endphp
 
-        @php
-            $page = request('page', 'sell'); // sell / buy
-        @endphp
+            <nav class="mypage-tabs">
+                <a class="mypage-tabs__item {{ $page === 'sell' ? 'is-active' : '' }}"
+                    href="{{ url('mypage') }}?page=sell">出品した商品</a>
 
-        <nav class="mypage-tabs">
-            <a class="mypage-tabs__item {{ $page === 'sell' ? 'is-active' : '' }}" href="{{ url('mypage') }}?page=sell">出品した商品</a>
+                <a class="mypage-tabs__item {{ $page === 'buy' ? 'is-active' : '' }}"
+                    href="{{ url('mypage') }}?page=buy">購入した商品</a>
+            </nav>
 
-            <a class="mypage-tabs__item {{ $page === 'buy' ? 'is-active' : '' }}" href="{{ url('mypage') }}?page=buy">購入した商品</a>
-        </nav>
+            <div class="mypage-sep"></div>
 
-        <div class="mypage-sep"></div>
+            <section class="mypage-items">
+                @if ($page === 'sell')
+                    <div class="mypage-items__grid">
 
-        <section class="mypage-items">
-            @if ($page === 'sell')            
-                <div class="mypage-items__grid">
+                        @forelse ($items as $item)
+                            <article class="mypage-card">
+                                <a class="mypage-card__link" href="{{ route('items.show', $item->id) }}">
+                                    <div class="mypage-card__image {{ $item->is_sold ? 'is-sold' : '' }}">
+                                        <img class="mypage-card__img" src="{{ asset('storage/' . $item->image_path) }}"
+                                            alt="{{ $item->name }}" loading="lazy">
 
-                    @forelse ($items as $item)
-                        <article class="mypage-card">
-                            <a class="mypage-card__link" href="{{ route('items.show', $item->id) }}">
-                                <div class="mypage-card__image {{ $item->is_sold ? 'is-sold' : '' }}">
-                                    <img class="mypage-card__img" src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" loading="lazy">
+                                        @if ($item->is_sold)
+                                            <span class="mypage-card__sold">SOLD</span>
+                                        @endif
+                                    </div>
 
-                                    @if ($item->is_sold)
-                                        <span class="mypage-card__sold">SOLD</span>
-                                    @endif
-                                </div>
+                                    <div class="mypage-card__name">
+                                        {{ $item->name }}
+                                    </div>
+                                </a>
+                            </article>
+                        @empty
+                            <p class="mypage-items__empty">表示する商品がありません</p>
+                        @endforelse
+                    </div>
+                @endif
 
-                                <div class="mypage-card__name">
-                                    {{ $item->name }}
-                                </div>
-                            </a>
-                        </article>
-                    @empty
-                        <p class="mypage-items__empty">表示する商品がありません</p>
-                    @endforelse
-                </div>
-            @endif
+                @if ($page === 'buy')
+                    <div class="mypage-items__grid">
 
-            @if ($page === 'buy')
-                <div class="mypage-items__grid">
+                        @forelse ($orders as $order)
+                            @php($item = $order->item)
+                            @continue(!$item)
 
-                    @forelse ($orders as $order)
-                        @php($item = $order->item)
-                        @continue(!$item)
+                            <article class="mypage-card">
+                                <a class="mypage-card__link" href="{{ route('items.show', $item->id) }}">
+                                    <div class="mypage-card__image {{ $item->is_sold ? 'is-sold' : '' }}">
+                                        <img class="mypage-card__img" src="{{ asset('storage/' . $item->image_path) }}"
+                                            alt="{{ $item->name }}" loading="lazy">
 
-                        <article class="mypage-card">
-                            <a class="mypage-card__link" href="{{ route('items.show', $item->id) }}">
-                                <div class="mypage-card__image {{ $item->is_sold ? 'is-sold' : '' }}">
-                                    <img class="mypage-card__img" src="{{ asset('storage/' . $item->image_path) }}" alt="{{ $item->name }}" loading="lazy">
+                                        @if ($item->is_sold)
+                                            <span class="mypage-card__sold">SOLD</span>
+                                        @endif
+                                        <div>
+                                </a>
+                            </article>
+                        @empty
+                            <p class="mypage-items__empty">購入した商品がありません</p>
+                        @endforelse
+                    </div>
+                @endif
+            </section>
 
-                                    @if ($item->is_sold)
-                                        <span class="mypage-card__sold">SOLD</span>
-                                    @endif
-                                <div>                             
-                            </a>
-                        </article>
-                    @empty
-                        <p class="mypage-items__empty">購入した商品がありません</p>
-                    @endforelse
-                </div>
-            @endif
-        </section>
-
+        </div>
     </div>
-</div>
 @endsection

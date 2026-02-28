@@ -22,18 +22,18 @@
             @if (!request()->routeIs('login') && !request()->routeIs('register') && !request()->routeIs('verification.notice'))
                 <form class="header__search" method="get" action="{{ route('items.index') }}">
                     <input type="hidden" name="tab" value="{{ request('tab', 'recommend') }}">
-                    <input class="header-search__input" type="text" name="keyword" placeholder="なにをお探しですか？" value="{{ request('keyword') }}">
+                    <input class="header-search__input" type="text" name="keyword" placeholder="なにをお探しですか？"
+                        value="{{ request('keyword') }}">
                 </form>
             @endif
 
             <div class="header__right">
-                @if (!request()->routeIs('login') && !request()->routeIs('register') && !request()->routeIs('verification.notice')) 
-
+                @if (!request()->routeIs('login') && !request()->routeIs('register') && !request()->routeIs('verification.notice'))
                     @auth
                         <form method="post" action="{{ route('logout') }}">
                             @csrf
                             <button class="header__action" type="submit">ログアウト</button>
-                        </form>                        
+                        </form>
                     @else
                         <a class="header__action" href="{{ route('login') }}">ログイン</a>
                     @endauth
@@ -41,10 +41,9 @@
                     <a class="header__action" href="{{ url('/mypage') }}">マイページ</a>
 
                     <a class="header__action header__action--primary" href="{{ route('items.sell') }}">出品</a>
-
                 @endif
             </div>
-            
+
         </div>
     </header>
 
