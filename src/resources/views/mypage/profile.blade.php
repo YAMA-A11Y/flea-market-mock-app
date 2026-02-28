@@ -15,10 +15,9 @@
 
             <div class="profile-form__image">
                 <div class="profile-form__image-preview">
-                    @if (!empty($user->profile_image))
-                        <img class ="profile-form__image-img" src="{{ asset('storage/' . $user->profile_image) }}"
-                            alt="プロフィール画像">
-                    @endif
+                    <img id="profile-preview" class="profile-form__image-img"
+                        src="{{ !empty($user->profile_image) ? asset('storage/' . $user->profile_image) : '' }}"
+                        alt="プロフィール画像">
                 </div>
 
                 <label class="profile-form__image-button">
@@ -99,4 +98,31 @@
             </div>
         </form>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const input = document.querySelector('.profile-form__image-input');
+            const preview = document.getElementById('profile-preview');
+
+            if (!input || !preview) return;
+
+            if (!preview.getAttribute('src')) {
+                preview.style.display = 'none';
+            }
+
+            input.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    preview.src = event.target.result;
+                    preview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
 @endsection
